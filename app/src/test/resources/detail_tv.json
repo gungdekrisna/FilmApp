@@ -1,0 +1,116 @@
+{
+  "backdrop_path": "/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg",
+  "created_by": [
+    {
+      "id": 1868712,
+      "credit_id": "605508e2960cde00721fc5e8",
+      "name": "Malcolm Spellman",
+      "gender": 2,
+      "profile_path": null
+    }
+  ],
+  "episode_run_time": [
+    50
+  ],
+  "first_air_date": "2021-03-19",
+  "genres": [
+    {
+      "id": 10765,
+      "name": "Sci-Fi & Fantasy"
+    },
+    {
+      "id": 10759,
+      "name": "Action & Adventure"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 10768,
+      "name": "War & Politics"
+    }
+  ],
+  "homepage": "https://www.disneyplus.com/series/the-falcon-and-the-winter-soldier/4gglDBMx8icA",
+  "id": 88396,
+  "in_production": false,
+  "languages": [
+    "en",
+    "fr"
+  ],
+  "last_air_date": "2021-04-23",
+  "last_episode_to_air": {
+    "air_date": "2021-04-23",
+    "episode_number": 6,
+    "id": 2558743,
+    "name": "One World, One People",
+    "overview": "As The Flag Smashers escalate their efforts, Sam and Bucky take action.",
+    "production_code": "",
+    "season_number": 1,
+    "still_path": "/qXxCqMP7aj3rGndhVfGUyyU6hyq.jpg",
+    "vote_average": 6.6,
+    "vote_count": 5
+  },
+  "name": "The Falcon and the Winter Soldier",
+  "next_episode_to_air": null,
+  "networks": [
+    {
+      "name": "Disney+",
+      "id": 2739,
+      "logo_path": "/gJ8VX6JSu3ciXHuC2dDGAo2lvwM.png",
+      "origin_country": "US"
+    }
+  ],
+  "number_of_episodes": 6,
+  "number_of_seasons": 1,
+  "origin_country": [
+    "US"
+  ],
+  "original_language": "en",
+  "original_name": "The Falcon and the Winter Soldier",
+  "overview": "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
+  "popularity": 2875.574,
+  "poster_path": "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+  "production_companies": [
+    {
+      "id": 420,
+      "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+      "name": "Marvel Studios",
+      "origin_country": "US"
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "seasons": [
+    {
+      "air_date": "2021-03-19",
+      "episode_count": 6,
+      "id": 156676,
+      "name": "Season 1",
+      "overview": "",
+      "poster_path": "/fIT6Y6O3cUX1X8qY8pZgzEvxUDQ.jpg",
+      "season_number": 1
+    }
+  ],
+  "spoken_languages": [
+    {
+      "english_name": "English",
+      "iso_639_1": "en",
+      "name": "English"
+    },
+    {
+      "english_name": "French",
+      "iso_639_1": "fr",
+      "name": "Français"
+    }
+  ],
+  "status": "Ended",
+  "tagline": "Honor the shield.",
+  "type": "Miniseries",
+  "vote_average": 7.9,
+  "vote_count": 5185
+}

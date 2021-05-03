@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Film</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="tv_show">TV Shows</string>
+    <string name="films">Movies</string>
+    <string name="film_detail">Movie Detail</string>
+    <string name="tv_detail">TV Show Detail</string>
+    <string name="overview_title">Overview</string>
+    <string name="overview">overview example</string>
+    <string name="user_score_text">User Score</string>
+    <string name="share">Share</string>
+    <string name="production_title">Production Companies</string>
+    <string name="production">Production Companies Name</string>
+    <string name="creator_title">Creator</string>
+    <string name="creator">Creator Name</string>
+    <string name="info">%1$s • %2$s • %3$dm</string>
+    <string name="share_film">Watch %1$s on new Film App!</string>
+    <string name="empty_movie">No Movie Available</string>
+    <string name="empty_tv_show">No TV Show Available</string>
+</resources>
