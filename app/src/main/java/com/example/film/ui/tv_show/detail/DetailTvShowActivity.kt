@@ -2,8 +2,11 @@ package com.example.film.ui.tv_show.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -18,6 +21,10 @@ class DetailTvShowActivity : AppCompatActivity() {
     private var creators = ArrayList<String>()
     private var genres = ArrayList<String>()
     // private val viewModel by viewModel<DetailTvShowViewModel>()
+    private var menu: Menu? = null
+    private lateinit var viewModel: DetailTvShowViewModel
+    private lateinit var detailTvShow: DetailTvResponse
+    private var favorited: Boolean = false
 
     companion object{
         const val EXTRA_TV_SHOW = "extra_tv"
@@ -36,7 +43,7 @@ class DetailTvShowActivity : AppCompatActivity() {
         }
 
         val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[DetailTvShowViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[DetailTvShowViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {
@@ -45,6 +52,7 @@ class DetailTvShowActivity : AppCompatActivity() {
             viewModel.getDetailTv().observe(this, { tv ->
                 binding.progressBar.visibility = View.GONE
                 populateTvShow(tv)
+                detailTvShow = tv
             })
         }
     }
@@ -82,5 +90,35 @@ class DetailTvShowActivity : AppCompatActivity() {
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.detail_menu, menu)
+        val menuItem = menu?.findItem(R.id.action_favorite)
+        this.menu = menu
+        viewModel.getFavoriteTvShow().observe(this, { favoriteTvShow ->
+            if (favoriteTvShow != null){
+                menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite)
+                favorited = true
+            } else {
+                menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border)
+                favorited = false
+            }
+        })
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_favorite) {
+            if (favorited){
+                viewModel.deleteFavorite(detailTvShow)
+                item.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border)
+            } else {
+                viewModel.setFavorite(detailTvShow)
+                item.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite)
+            }
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

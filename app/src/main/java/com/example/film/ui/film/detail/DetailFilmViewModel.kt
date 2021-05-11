@@ -8,15 +8,10 @@ import com.example.film.data.resources.remote.response.DetailMovieResponse
 
 class DetailFilmViewModel(private val filmRepository: FilmRepository) : ViewModel() {
     private var filmId: Int = 0
-    // private val filmId = MutableLiveData<Int>()
 
     fun setSelectedMovies(filmId: Int) {
         this.filmId = filmId
     }
-
-    /*fun setSelectedMovies(filmId: Int) {
-        this.filmId.value = filmId
-    }*/
 
     fun getDetailMovies() : LiveData<DetailMovieResponse> = filmRepository.getDetailMovie(filmId)
 

@@ -3,6 +3,7 @@ package com.example.film.ui.tv_show.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.film.data.resources.FilmRepository
+import com.example.film.data.resources.local.TvShowEntity
 import com.example.film.data.resources.remote.response.DetailTvResponse
 
 class DetailTvShowViewModel(private val filmRepository: FilmRepository) : ViewModel() {
@@ -13,4 +14,30 @@ class DetailTvShowViewModel(private val filmRepository: FilmRepository) : ViewMo
     }
 
     fun getDetailTv() : LiveData<DetailTvResponse> = filmRepository.getDetailTv(tvShowId)
+
+    fun getFavoriteTvShow() : LiveData<TvShowEntity?>{
+        return filmRepository.getFavoriteTvShowById(tvShowId)
+    }
+
+    fun setFavorite(detailTvResponse: DetailTvResponse) {
+        val tvShowEntity = TvShowEntity(
+            detailTvResponse.name,
+            detailTvResponse.posterPath,
+            detailTvResponse.firstAirDate,
+            detailTvResponse.voteAverage,
+            detailTvResponse.id
+        )
+        filmRepository.insertFavoriteTvShow(tvShowEntity)
+    }
+
+    fun deleteFavorite(detailTvResponse: DetailTvResponse) {
+        val tvShowEntity = TvShowEntity(
+            detailTvResponse.name,
+            detailTvResponse.posterPath,
+            detailTvResponse.firstAirDate,
+            detailTvResponse.voteAverage,
+            detailTvResponse.id
+        )
+        filmRepository.deleteFavoriteTvShow(tvShowEntity)
+    }
 }

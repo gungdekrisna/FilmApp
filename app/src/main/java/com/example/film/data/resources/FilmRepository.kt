@@ -2,8 +2,10 @@ package com.example.film.data.resources
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import com.example.film.data.resources.local.LocalDataSource
 import com.example.film.data.resources.local.MovieEntity
+import com.example.film.data.resources.local.TvShowEntity
 import com.example.film.data.resources.remote.RemoteDataSource
 import com.example.film.data.resources.remote.response.DetailMovieResponse
 import com.example.film.data.resources.remote.response.DetailTvResponse
@@ -73,17 +75,17 @@ class FilmRepository constructor(
         return detailTvResult
     }
 
-    override fun getFavoriteMovies(): LiveData<List<MovieEntity>> {
-        val favoriteMovieResult = MutableLiveData<List<MovieEntity>>()
+    // Favorite
+    // Movies
+    override fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity> {
+        var favoriteMovieResult : DataSource.Factory<Int, MovieEntity>? = null
 
-        appExecutors.diskIO().execute {
-            localDataSource.getFavoriteMovies(object : LocalDataSource.LoadFavoriteMoviesCallback {
-                override fun onFavoriteMoviesReceived(movieEntity: List<MovieEntity>) {
-                    favoriteMovieResult.postValue(movieEntity)
-                }
-            })
-        }
-        return favoriteMovieResult
+        localDataSource.getFavoriteMovies(object : LocalDataSource.LoadFavoriteMoviesCallback {
+            override fun onFavoriteMoviesReceived(movieEntity: DataSource.Factory<Int, MovieEntity>) {
+                favoriteMovieResult = movieEntity
+            }
+        })
+        return favoriteMovieResult!!
     }
 
     override fun getFavoriteMovieById(movieId: Int): LiveData<MovieEntity?> {
@@ -105,5 +107,38 @@ class FilmRepository constructor(
 
     override fun deleteFavoriteMovie(movie: MovieEntity) {
         appExecutors.diskIO().execute { localDataSource.deleteFavoriteMovie(movie) }
+    }
+
+    // Tv Shows
+    override fun getFavoriteTvShows(): DataSource.Factory<Int, TvShowEntity> {
+        var favoriteTvShowResult : DataSource.Factory<Int, TvShowEntity>? = null
+
+        localDataSource.getFavoriteTvShows(object : LocalDataSource.LoadFavoriteTvShowsCallback {
+            override fun onFavoriteTvShowsReceived(tvShowEntity: DataSource.Factory<Int, TvShowEntity>) {
+                favoriteTvShowResult = tvShowEntity
+            }
+        })
+        return favoriteTvShowResult!!
+    }
+
+    override fun getFavoriteTvShowById(tvShowId: Int): LiveData<TvShowEntity?> {
+        val favoriteTvShowByIdResult = MutableLiveData<TvShowEntity?>()
+
+        appExecutors.diskIO().execute {
+            localDataSource.getFavoriteTvShowById(tvShowId, object : LocalDataSource.LoadFavoriteTvShowByIdCallback {
+                override fun onFavoriteTvShowByIdReceived(tvShowEntity: TvShowEntity?) {
+                    favoriteTvShowByIdResult.postValue(tvShowEntity)
+                }
+            })
+        }
+        return favoriteTvShowByIdResult
+    }
+
+    override fun insertFavoriteTvShow(tvShow: TvShowEntity) {
+        appExecutors.diskIO().execute { localDataSource.insertFavoriteTvShow(tvShow) }
+    }
+
+    override fun deleteFavoriteTvShow(tvShow: TvShowEntity) {
+        appExecutors.diskIO().execute { localDataSource.deleteFavoriteTvShow(tvShow) }
     }
 }

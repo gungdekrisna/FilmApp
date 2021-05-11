@@ -18,6 +18,8 @@
     <string name="share_film">Watch %1$s on new Film App!</string>
     <string name="empty_movie">No Movie Available</string>
     <string name="empty_tv_show">No TV Show Available</string>
+    <string name="empty_favorite_movie">No Favorite Movie Available</string>
+    <string name="empty_favorite_tv_show">No Favorite TV Show Available</string>
     <string name="unknown">Unknown</string>
     <string name="favorite">Favorite</string>
     <string name="menu_favorite">Menu Favorite</string>
