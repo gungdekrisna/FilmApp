@@ -2,20 +2,31 @@ package com.example.film.data.resources
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.film.data.resources.local.LocalDataSource
+import com.example.film.data.resources.local.MovieEntity
 import com.example.film.data.resources.remote.RemoteDataSource
 import com.example.film.data.resources.remote.response.DetailMovieResponse
 import com.example.film.data.resources.remote.response.DetailTvResponse
+import com.example.film.data.resources.remote.response.MovieResultsItem
 import com.example.film.data.resources.remote.response.TvResultsItem
-import com.example.film.resources.remote.response.MovieResultsItem
+import com.example.film.utils.AppExecutors
 
-class FilmRepository private constructor(private val remoteDataSource: RemoteDataSource) : FilmDataSource {
+class FilmRepository constructor(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
+    private val appExecutors: AppExecutors
+    ) : FilmDataSource {
+
     companion object {
         @Volatile
         private var instance: FilmRepository? = null
-        fun getInstance(remoteData: RemoteDataSource): FilmRepository =
-                instance ?: synchronized(this) {
-                    instance ?: FilmRepository(remoteData).apply { instance = this }
+
+        fun getInstance(remoteData: RemoteDataSource, localData: LocalDataSource, appExecutors: AppExecutors): FilmRepository =
+            instance ?: synchronized(this) {
+                instance ?: FilmRepository(remoteData, localData, appExecutors).apply {
+                    instance = this
                 }
+            }
     }
 
     override fun getMovies(): LiveData<List<MovieResultsItem>> {
@@ -60,5 +71,39 @@ class FilmRepository private constructor(private val remoteDataSource: RemoteDat
         })
 
         return detailTvResult
+    }
+
+    override fun getFavoriteMovies(): LiveData<List<MovieEntity>> {
+        val favoriteMovieResult = MutableLiveData<List<MovieEntity>>()
+
+        appExecutors.diskIO().execute {
+            localDataSource.getFavoriteMovies(object : LocalDataSource.LoadFavoriteMoviesCallback {
+                override fun onFavoriteMoviesReceived(movieEntity: List<MovieEntity>) {
+                    favoriteMovieResult.postValue(movieEntity)
+                }
+            })
+        }
+        return favoriteMovieResult
+    }
+
+    override fun getFavoriteMovieById(movieId: Int): LiveData<MovieEntity?> {
+        val favoriteMovieByIdResult = MutableLiveData<MovieEntity?>()
+
+        appExecutors.diskIO().execute {
+            localDataSource.getFavoriteMovieById(movieId, object : LocalDataSource.LoadFavoriteMovieByIdCallback {
+                override fun onFavoriteMovieByIdReceived(movieEntity: MovieEntity?) {
+                    favoriteMovieByIdResult.postValue(movieEntity)
+                }
+            })
+        }
+        return favoriteMovieByIdResult
+    }
+
+    override fun insertFavoriteMovie(movie: MovieEntity) {
+        appExecutors.diskIO().execute { localDataSource.insertFavoriteMovie(movie) }
+    }
+
+    override fun deleteFavoriteMovie(movie: MovieEntity) {
+        appExecutors.diskIO().execute { localDataSource.deleteFavoriteMovie(movie) }
     }
 }

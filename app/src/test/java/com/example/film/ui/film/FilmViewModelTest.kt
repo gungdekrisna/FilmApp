@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.film.BuildConfig
 import com.example.film.api.ApiConfig
 import com.example.film.data.resources.FilmRepository
-import com.example.film.resources.remote.response.MovieResultsItem
+import com.example.film.data.resources.remote.response.MovieResultsItem
 import com.example.film.utils.MockResponseFileReader
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull

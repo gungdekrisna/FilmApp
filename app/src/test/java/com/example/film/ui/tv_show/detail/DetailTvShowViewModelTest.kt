@@ -27,7 +27,7 @@ import java.net.HttpURLConnection
 @RunWith(MockitoJUnitRunner::class)
 class DetailTvShowViewModelTest {
     private lateinit var viewModel: DetailTvShowViewModel
-    private val tvId = 88396
+    private val tvId = 95557
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()

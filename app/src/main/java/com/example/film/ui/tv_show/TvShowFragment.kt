@@ -8,17 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.film.databinding.FragmentTvShowBinding
-import com.example.film.ui.film.FilmViewModel
 import com.example.film.viewmodel.ViewModelFactory
 
 class TvShowFragment : Fragment() {
 
     private lateinit var binding : FragmentTvShowBinding
+    // private val viewModel by viewModel<TvShowViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTvShowBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -28,11 +28,12 @@ class TvShowFragment : Fragment() {
 
         if (activity != null){
             val tvShowAdapter = TvShowAdapter()
+
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
 
             viewModel.getTvShows().observe(viewLifecycleOwner, { tvs ->
-                if (tvs.size == 0){
+                if (tvs.isEmpty()){
                     binding.tvEmptyTvShow.visibility = View.VISIBLE
                     binding.imgEmptyIcon.visibility = View.VISIBLE
                     binding.rvTvShow.visibility = View.GONE

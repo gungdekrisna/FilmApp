@@ -3,7 +3,7 @@ package com.example.film.api
 import com.example.film.data.resources.remote.response.DetailMovieResponse
 import com.example.film.data.resources.remote.response.DetailTvResponse
 import com.example.film.data.resources.remote.response.TvResponse
-import com.example.film.resources.remote.response.MovieResponse
+import com.example.film.data.resources.remote.response.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

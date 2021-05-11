@@ -3,12 +3,7 @@ package com.example.film.data.resources.remote
 import android.util.Log
 import com.example.film.BuildConfig
 import com.example.film.api.ApiConfig
-import com.example.film.data.resources.remote.response.DetailMovieResponse
-import com.example.film.data.resources.remote.response.DetailTvResponse
-import com.example.film.data.resources.remote.response.TvResponse
-import com.example.film.data.resources.remote.response.TvResultsItem
-import com.example.film.resources.remote.response.MovieResponse
-import com.example.film.resources.remote.response.MovieResultsItem
+import com.example.film.data.resources.remote.response.*
 import com.example.film.utils.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,18 +12,18 @@ import retrofit2.Response
 class RemoteDataSource {
 
     companion object {
+        const val TAG = "RemoteDataSource"
+
         @Volatile
         private var instance: RemoteDataSource? = null
 
         fun getInstance(): RemoteDataSource =
-                instance ?: synchronized(this) {
-                    instance ?: RemoteDataSource().apply { instance = this }
-                }
-
-        const val TAG = "RemoteDataSource"
+            instance ?: synchronized(this) {
+                RemoteDataSource().apply { instance = this }
+            }
     }
 
-    fun getMovies(callback: LoadMoviesCallback){
+    fun getMovies(callback: LoadMoviesCallback) {
         EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getPopularMovies(BuildConfig.API_KEY, 1)
         client.enqueue(object : Callback<MovieResponse> {

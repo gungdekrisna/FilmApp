@@ -1,22 +1,14 @@
 {
-  "backdrop_path": "/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg",
-  "created_by": [
-    {
-      "id": 1868712,
-      "credit_id": "605508e2960cde00721fc5e8",
-      "name": "Malcolm Spellman",
-      "gender": 2,
-      "profile_path": null
-    }
-  ],
+  "backdrop_path": "/6UH52Fmau8RPsMAbQbjwN3wJSCj.jpg",
+  "created_by": [],
   "episode_run_time": [
-    50
+    45
   ],
-  "first_air_date": "2021-03-19",
+  "first_air_date": "2021-03-26",
   "genres": [
     {
-      "id": 10765,
-      "name": "Sci-Fi & Fantasy"
+      "id": 16,
+      "name": "Animation"
     },
     {
       "id": 10759,
@@ -27,59 +19,74 @@
       "name": "Drama"
     },
     {
-      "id": 10768,
-      "name": "War & Politics"
+      "id": 10765,
+      "name": "Sci-Fi & Fantasy"
     }
   ],
-  "homepage": "https://www.disneyplus.com/series/the-falcon-and-the-winter-soldier/4gglDBMx8icA",
-  "id": 88396,
-  "in_production": false,
+  "homepage": "https://www.amazon.com/dp/B08WJP55PR",
+  "id": 95557,
+  "in_production": true,
   "languages": [
-    "en",
-    "fr"
+    "en"
   ],
-  "last_air_date": "2021-04-23",
+  "last_air_date": "2021-04-30",
   "last_episode_to_air": {
-    "air_date": "2021-04-23",
-    "episode_number": 6,
-    "id": 2558743,
-    "name": "One World, One People",
-    "overview": "As The Flag Smashers escalate their efforts, Sam and Bucky take action.",
+    "air_date": "2021-04-30",
+    "episode_number": 8,
+    "id": 2832752,
+    "name": "WHERE I REALLY COME FROM",
+    "overview": "Mark must prove he's become the hero he's always wanted to be by stopping an unstoppable force.",
     "production_code": "",
     "season_number": 1,
-    "still_path": "/qXxCqMP7aj3rGndhVfGUyyU6hyq.jpg",
-    "vote_average": 6.6,
-    "vote_count": 5
+    "still_path": "/ijDV8Z23iR5B2ftx0WggiXbfqGi.jpg",
+    "vote_average": 9.5,
+    "vote_count": 2
   },
-  "name": "The Falcon and the Winter Soldier",
+  "name": "Invincible",
   "next_episode_to_air": null,
   "networks": [
     {
-      "name": "Disney+",
-      "id": 2739,
-      "logo_path": "/gJ8VX6JSu3ciXHuC2dDGAo2lvwM.png",
-      "origin_country": "US"
+      "name": "Amazon",
+      "id": 1024,
+      "logo_path": "/ifhbNuuVnlwYy5oXA5VIb2YR8AZ.png",
+      "origin_country": ""
     }
   ],
-  "number_of_episodes": 6,
+  "number_of_episodes": 8,
   "number_of_seasons": 1,
   "origin_country": [
     "US"
   ],
   "original_language": "en",
-  "original_name": "The Falcon and the Winter Soldier",
-  "overview": "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
-  "popularity": 2875.574,
-  "poster_path": "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+  "original_name": "Invincible",
+  "overview": "Mark Grayson is a normal teenager except for the fact that his father is the most powerful superhero on the planet. Shortly after his seventeenth birthday, Mark begins to develop powers of his own and enters into his father’s tutelage.",
+  "popularity": 1937.807,
+  "poster_path": "/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg",
   "production_companies": [
     {
-      "id": 420,
-      "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
-      "name": "Marvel Studios",
+      "id": 20580,
+      "logo_path": "/tkFE81jJIqiFYPP8Tho57MXRQEx.png",
+      "name": "Amazon Studios",
+      "origin_country": "US"
+    },
+    {
+      "id": 151645,
+      "logo_path": null,
+      "name": "Skybound North",
+      "origin_country": "CA"
+    },
+    {
+      "id": 50032,
+      "logo_path": null,
+      "name": "Skybound Entertainment",
       "origin_country": "US"
     }
   ],
   "production_countries": [
+    {
+      "iso_3166_1": "CA",
+      "name": "Canada"
+    },
     {
       "iso_3166_1": "US",
       "name": "United States of America"
@@ -87,12 +94,12 @@
   ],
   "seasons": [
     {
-      "air_date": "2021-03-19",
-      "episode_count": 6,
-      "id": 156676,
+      "air_date": "2021-03-26",
+      "episode_count": 8,
+      "id": 136020,
       "name": "Season 1",
       "overview": "",
-      "poster_path": "/fIT6Y6O3cUX1X8qY8pZgzEvxUDQ.jpg",
+      "poster_path": "/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg",
       "season_number": 1
     }
   ],
@@ -101,16 +108,11 @@
       "english_name": "English",
       "iso_639_1": "en",
       "name": "English"
-    },
-    {
-      "english_name": "French",
-      "iso_639_1": "fr",
-      "name": "Français"
     }
   ],
-  "status": "Ended",
-  "tagline": "Honor the shield.",
-  "type": "Miniseries",
-  "vote_average": 7.9,
-  "vote_count": 5185
+  "status": "Returning Series",
+  "tagline": "",
+  "type": "Scripted",
+  "vote_average": 8.9,
+  "vote_count": 1307
 }

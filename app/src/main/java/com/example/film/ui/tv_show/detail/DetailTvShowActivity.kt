@@ -17,6 +17,7 @@ class DetailTvShowActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailTvShowBinding
     private var creators = ArrayList<String>()
     private var genres = ArrayList<String>()
+    // private val viewModel by viewModel<DetailTvShowViewModel>()
 
     companion object{
         const val EXTRA_TV_SHOW = "extra_tv"
@@ -29,10 +30,9 @@ class DetailTvShowActivity : AppCompatActivity() {
 
         supportActionBar?.title = resources.getString(R.string.tv_detail)
 
-        var actionBar = supportActionBar
-        if (actionBar != null){
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white)
-            actionBar.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.apply {
+            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_white)
+            setDisplayHomeAsUpEnabled(true)
         }
 
         val factory = ViewModelFactory.getInstance(this)
@@ -40,7 +40,7 @@ class DetailTvShowActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-            val tvShowId = extras.getInt(DetailTvShowActivity.EXTRA_TV_SHOW)
+            val tvShowId = extras.getInt(EXTRA_TV_SHOW)
             viewModel.setSelectedTvShow(tvShowId)
             viewModel.getDetailTv().observe(this, { tv ->
                 binding.progressBar.visibility = View.GONE
@@ -66,7 +66,7 @@ class DetailTvShowActivity : AppCompatActivity() {
         binding.tvCreator.text = creators.toString().replace("[", "").replace("]", "")
         binding.tvUserScore.text = detailTvResponse.voteAverage.toString()
         Glide.with(this)
-            .load("http://image.tmdb.org/t/p/original${detailTvResponse.posterPath}")
+            .load("https://image.tmdb.org/t/p/original${detailTvResponse.posterPath}")
             .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
             .error(R.drawable.ic_error_image)
             .into(binding.ivPoster)

@@ -7,7 +7,7 @@ import com.example.film.data.resources.remote.RemoteDataSource
 import com.example.film.data.resources.remote.response.DetailMovieResponse
 import com.example.film.data.resources.remote.response.DetailTvResponse
 import com.example.film.data.resources.remote.response.TvResultsItem
-import com.example.film.resources.remote.response.MovieResultsItem
+import com.example.film.data.resources.remote.response.MovieResultsItem
 
 class FakeFilmRepository(private val remoteDataSource: RemoteDataSource) : FilmDataSource {
 

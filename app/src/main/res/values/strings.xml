@@ -18,4 +18,9 @@
     <string name="share_film">Watch %1$s on new Film App!</string>
     <string name="empty_movie">No Movie Available</string>
     <string name="empty_tv_show">No TV Show Available</string>
+    <string name="unknown">Unknown</string>
+    <string name="favorite">Favorite</string>
+    <string name="menu_favorite">Menu Favorite</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

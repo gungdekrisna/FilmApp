@@ -24,12 +24,12 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>()  {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TvShowAdapter.TvShowViewHolder {
+    ): TvShowViewHolder {
         val itemFilmBinding = ItemFilmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TvShowAdapter.TvShowViewHolder(itemFilmBinding)
+        return TvShowViewHolder(itemFilmBinding)
     }
 
-    override fun onBindViewHolder(holder: TvShowAdapter.TvShowViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
         val tvShows = listTvShows[position]
         holder.bind(tvShows)
     }
@@ -43,7 +43,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>()  {
                 tvReleaseDate.text = tvShow.firstAirDate
                 tvVote.text = tvShow.voteAverage.toString()
                 Glide.with(itemView.context)
-                        .load("http://image.tmdb.org/t/p/original${tvShow.posterPath}")
+                        .load("https://image.tmdb.org/t/p/original${tvShow.posterPath}")
                         .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
                         .error(R.drawable.ic_error_image)
                         .into(imgPoster)

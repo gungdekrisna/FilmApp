@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.film.R
+import com.example.film.data.resources.remote.response.MovieResultsItem
 import com.example.film.databinding.ItemFilmBinding
-import com.example.film.resources.remote.response.MovieResultsItem
 import com.example.film.ui.film.detail.DetailFilmActivity
 
 class FilmAdapter : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
@@ -21,12 +21,12 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
         this.listFilms.addAll(films)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmAdapter.FilmViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
         val itemFilmBinding = ItemFilmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FilmViewHolder(itemFilmBinding)
     }
 
-    override fun onBindViewHolder(holder: FilmAdapter.FilmViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
         val films = listFilms[position]
         holder.bind(films)
     }
@@ -40,7 +40,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
                 tvReleaseDate.text = film.releaseDate
                 tvVote.text = film.voteAverage.toString()
                 Glide.with(itemView.context)
-                    .load("http://image.tmdb.org/t/p/original${film.posterPath}")
+                    .load("https://image.tmdb.org/t/p/original${film.posterPath}")
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
                     .error(R.drawable.ic_error_image)
                     .into(imgPoster)

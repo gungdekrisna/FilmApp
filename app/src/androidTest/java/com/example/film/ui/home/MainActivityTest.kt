@@ -1,12 +1,6 @@
 package com.example.film.ui.home
 
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.Drawable
-import android.view.View
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
@@ -26,28 +20,25 @@ import com.example.film.BuildConfig
 import com.example.film.R
 import com.example.film.api.ApiConfig
 import com.example.film.utils.EspressoIdlingResource
-import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
-import org.hamcrest.TypeSafeMatcher
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
 
 class MainActivityTest {
-    private val movieId = 460465
-    private val tvId = 88396
     private val dataMovies = ApiConfig.getApiService().getPopularMovies(BuildConfig.API_KEY, 1).execute().body()?.results
     private val dataTvShows = ApiConfig.getApiService().getPopularTvs(BuildConfig.API_KEY, 1).execute().body()?.results
+    private val movieId = dataMovies!![0].id
+    private val tvId = dataTvShows!![0].id
     private val detailMovie = ApiConfig.getApiService().getDetailMovie(movieId, BuildConfig.API_KEY).execute().body()
     private val detailTvShow = ApiConfig.getApiService().getDetailTv(tvId, BuildConfig.API_KEY).execute().body()
 
     @Before
     fun setUp() {
-        ActivityScenario.launch(MainActivity::class.java)
+        ActivityScenario.launch(FavoriteMainActivity::class.java)
         IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
     }
 
@@ -118,9 +109,9 @@ class MainActivityTest {
     @Test
     fun shareMovie() {
         if(detailMovie != null) {
-            val expectedFilmIntent = Matchers.allOf(
-                    IntentMatchers.hasAction(Intent.ACTION_SEND),
-                    IntentMatchers.hasExtra(Intent.EXTRA_TEXT, "Watch ${detailMovie.title} on new Film App!"),
+            val expectedFilmIntent = allOf(
+                    hasAction(Intent.ACTION_SEND),
+                    hasExtra(Intent.EXTRA_TEXT, "Watch ${detailMovie.title} on new Film App!"),
                     IntentMatchers.hasType("text/plain")
             )
             Espresso.onView(withId(R.id.rv_film)).perform(
@@ -139,7 +130,7 @@ class MainActivityTest {
     @Test
     fun loadTvShows() {
         if(dataTvShows?.size != 0) {
-            Espresso.onView(ViewMatchers.withText("TV Shows")).perform(ViewActions.click())
+            Espresso.onView(withText("TV Shows")).perform(ViewActions.click())
             Espresso.onView(withId(R.id.rv_tv_show))
                     .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
             Espresso.onView(withId(R.id.rv_tv_show)).perform(
@@ -153,7 +144,7 @@ class MainActivityTest {
     @Test
     fun loadEmptyTvShow() {
         if(dataTvShows?.size == 0){
-            Espresso.onView(ViewMatchers.withText("TV Shows")).perform(ViewActions.click())
+            Espresso.onView(withText("TV Shows")).perform(ViewActions.click())
             Espresso.onView(withId(R.id.tv_empty_tv_show))
                     .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
             Espresso.onView(withId(R.id.img_empty_icon))
@@ -167,7 +158,7 @@ class MainActivityTest {
         val genres = ArrayList<String>()
 
         if(detailTvShow != null) {
-            Espresso.onView(ViewMatchers.withText("TV Shows")).perform(ViewActions.click())
+            Espresso.onView(withText("TV Shows")).perform(ViewActions.click())
             Espresso.onView(withId(R.id.rv_tv_show)).perform(
                     RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                             0,
@@ -204,12 +195,12 @@ class MainActivityTest {
     @Test
     fun shareTvShow() {
         if(detailTvShow != null) {
-            val expectedTvShowIntent = Matchers.allOf(
-                    IntentMatchers.hasAction(Intent.ACTION_SEND),
-                    IntentMatchers.hasExtra(Intent.EXTRA_TEXT, "Watch ${detailTvShow.name} on new Film App!"),
+            val expectedTvShowIntent = allOf(
+                    hasAction(Intent.ACTION_SEND),
+                    hasExtra(Intent.EXTRA_TEXT, "Watch ${detailTvShow.name} on new Film App!"),
                     IntentMatchers.hasType("text/plain")
             )
-            Espresso.onView(ViewMatchers.withText("TV Shows")).perform(ViewActions.click())
+            Espresso.onView(withText("TV Shows")).perform(ViewActions.click())
             Espresso.onView(withId(R.id.rv_tv_show)).perform(
                     RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                             0,
@@ -223,47 +214,9 @@ class MainActivityTest {
         }
     }
 
-    fun withDrawable(resourceId: Int): Matcher<View> {
-        return DrawableMatcher(resourceId)
-    }
-
-    fun chooser(matcher: Matcher<Intent>): Matcher<Intent> {
+    private fun chooser(matcher: Matcher<Intent>): Matcher<Intent> {
         return allOf(
                 hasAction(Intent.ACTION_CHOOSER),
                 hasExtra(`is`(Intent.EXTRA_INTENT), matcher))
-    }
-}
-
-class DrawableMatcher(resourceId: Int) : TypeSafeMatcher<View>() {
-    private var expectedId = resourceId
-    override fun matchesSafely(item: View?): Boolean {
-        if (item !is ImageView) {
-            return false
-        }
-        val imageView: ImageView = item as ImageView
-        if (expectedId < 0) {
-            return imageView.getDrawable() == null
-        }
-        val resources: Resources = item.getContext().getResources()
-        val expectedDrawable: Drawable = resources.getDrawable(expectedId) ?: return false
-        val bitmap = getBitmap(imageView.getDrawable())
-        val otherBitmap = getBitmap(expectedDrawable)
-        return bitmap.sameAs(otherBitmap)
-    }
-
-    override fun describeTo(description: Description) {
-        description.appendText("with drawable from resource id: ");
-        description.appendValue(expectedId);
-    }
-
-    private fun getBitmap(drawable: Drawable) : Bitmap {
-        val bitmap = Bitmap.createBitmap(
-                drawable.intrinsicWidth,
-                drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight())
-        drawable.draw(canvas)
-        return bitmap
     }
 }
