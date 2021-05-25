@@ -17,13 +17,13 @@ interface FilmDataSource {
 
     // Favorite
     // Movies
-    fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity>
+    fun getFavoriteMovies(sort: String): DataSource.Factory<Int, MovieEntity>
     fun getFavoriteMovieById(movieId: Int): LiveData<MovieEntity?>
     fun insertFavoriteMovie(movie : MovieEntity)
     fun deleteFavoriteMovie(movie: MovieEntity)
 
     // Tv Shows
-    fun getFavoriteTvShows(): DataSource.Factory<Int, TvShowEntity>
+    fun getFavoriteTvShows(sort: String): DataSource.Factory<Int, TvShowEntity>
     fun getFavoriteTvShowById(tvShowId: Int): LiveData<TvShowEntity?>
     fun insertFavoriteTvShow(tvShow : TvShowEntity)
     fun deleteFavoriteTvShow(tvShow: TvShowEntity)

@@ -22,6 +22,7 @@ android {
 
     testOptions {
         unitTests.returnDefaultValues = true
+        unitTests.includeAndroidResources = true
     }
 
     buildTypes {
@@ -62,6 +63,8 @@ dependencies {
     // Testing
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test.ext:junit:$jUnitExtVersion"
+    testImplementation "androidx.test:core:$testCore"
+    testImplementation "org.robolectric:robolectric:$robolectric"
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
@@ -72,18 +75,13 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
-    testImplementation "com.squareup.okhttp3:mockwebserver:4.7.2"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer"
     testImplementation 'org.json:json:20210307'
 
     // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
-
-    // Depedency Injection
-    implementation "io.insert-koin:koin-android:$koinVersion"
-    implementation "io.insert-koin:koin-android-viewmodel:$koinVersion"
-    implementation "io.insert-koin:koin-androidx-scope:$koinVersion"
 
     // Room
     implementation "androidx.room:room-runtime:$roomRuntimeVersion"

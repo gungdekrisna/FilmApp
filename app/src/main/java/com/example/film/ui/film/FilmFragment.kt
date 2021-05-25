@@ -13,7 +13,6 @@ import com.example.film.viewmodel.ViewModelFactory
 class FilmFragment : Fragment() {
 
     private lateinit var binding : FragmentFilmBinding
-    // private val viewModel by viewModel<FilmViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {

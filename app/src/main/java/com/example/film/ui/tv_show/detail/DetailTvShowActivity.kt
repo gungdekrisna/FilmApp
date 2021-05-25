@@ -20,7 +20,6 @@ class DetailTvShowActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailTvShowBinding
     private var creators = ArrayList<String>()
     private var genres = ArrayList<String>()
-    // private val viewModel by viewModel<DetailTvShowViewModel>()
     private var menu: Menu? = null
     private lateinit var viewModel: DetailTvShowViewModel
     private lateinit var detailTvShow: DetailTvResponse
@@ -113,9 +112,11 @@ class DetailTvShowActivity : AppCompatActivity() {
             if (favorited){
                 viewModel.deleteFavorite(detailTvShow)
                 item.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border)
+                favorited = false
             } else {
                 viewModel.setFavorite(detailTvShow)
                 item.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite)
+                favorited = true
             }
             return true
         }

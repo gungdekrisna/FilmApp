@@ -55,7 +55,6 @@ class FilmViewModelTest {
 
     @Test
     fun checkSuccessResponse(){
-
         val response = MockResponse()
             .setResponseCode(HttpURLConnection.HTTP_OK)
             .setBody(MockResponseFileReader("movies.json").content)
@@ -68,7 +67,6 @@ class FilmViewModelTest {
 
     @Test
     fun getMovies(){
-
         val response = MockResponse()
             .setResponseCode(HttpURLConnection.HTTP_OK)
             .setBody(MockResponseFileReader("movies.json").content)

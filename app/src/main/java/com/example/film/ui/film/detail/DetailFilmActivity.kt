@@ -20,7 +20,6 @@ class DetailFilmActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailFilmBinding
     private var productionCompanies = ArrayList<String>()
     private var genres = ArrayList<String>()
-    // private val viewModel by viewModel<DetailFilmViewModel>()
     private var menu: Menu? = null
     private lateinit var viewModel: DetailFilmViewModel
     private lateinit var detailMovie: DetailMovieResponse
@@ -113,9 +112,11 @@ class DetailFilmActivity : AppCompatActivity() {
             if (favorited){
                 viewModel.deleteFavorite(detailMovie)
                 item.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border)
+                favorited = false
             } else {
                 viewModel.setFavorite(detailMovie)
                 item.icon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite)
+                favorited = true
             }
             return true
         }

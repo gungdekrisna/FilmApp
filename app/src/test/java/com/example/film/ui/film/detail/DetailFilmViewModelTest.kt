@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.film.BuildConfig
 import com.example.film.api.ApiConfig
 import com.example.film.data.resources.FilmRepository
+import com.example.film.data.resources.local.MovieEntity
 import com.example.film.data.resources.remote.response.DetailMovieResponse
 import com.example.film.utils.MockResponseFileReader
 import junit.framework.TestCase.assertEquals
@@ -18,8 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import java.net.HttpURLConnection
@@ -42,7 +42,6 @@ class DetailFilmViewModelTest {
         MockitoAnnotations.initMocks(this)
 
         viewModel = DetailFilmViewModel(filmRepository)
-        viewModel.setSelectedMovies(movieId)
 
         mockWebServer = MockWebServer()
         mockWebServer.start()
@@ -68,6 +67,15 @@ class DetailFilmViewModelTest {
     }
 
     @Test
+    fun testSetSelectedMovie(){
+        viewModel.setSelectedMovies(movieId)
+
+        val viewModel = viewModel.setSelectedMovies(movieId)
+        assertNotNull(viewModel)
+        assertEquals(viewModel, movieId)
+    }
+
+    @Test
     fun getDetailMovies(){
         val response = MockResponse()
                 .setResponseCode(HttpURLConnection.HTTP_OK)
@@ -79,6 +87,7 @@ class DetailFilmViewModelTest {
         val movie = ApiConfig.getApiService().getDetailMovie(movieId, BuildConfig.API_KEY).execute().body()
         liveDetailMovie.value = movie
         `when`(filmRepository.getDetailMovie(movieId)).thenReturn(liveDetailMovie)
+        viewModel.setSelectedMovies(movieId)
         val viewModelResponse = viewModel.getDetailMovies().value
         verify(filmRepository).getDetailMovie(movieId)
 
@@ -88,6 +97,56 @@ class DetailFilmViewModelTest {
     private fun parseMockedJSON(mockResponse: String): String {
         val reader = JSONObject(mockResponse)
         return reader.getString("title")
+    }
+
+    @Test
+    fun testGetFavoriteMovie(){
+        val movie = ApiConfig.getApiService().getDetailMovie(movieId, BuildConfig.API_KEY).execute().body()
+        val liveDetailMovie = MutableLiveData<MovieEntity>()
+        val movieEntity = MovieEntity(
+            movie!!.title,
+            movie.posterPath,
+            movie.releaseDate,
+            movie.voteAverage,
+            movie.id
+        )
+        liveDetailMovie.value = movieEntity
+        `when`(filmRepository.getFavoriteMovieById(movieId)).thenReturn(liveDetailMovie)
+        viewModel.setSelectedMovies(movieId)
+        val viewModelResult = viewModel.getFavoriteMovie()
+        verify(filmRepository, times(1)).getFavoriteMovieById(movieId)
+        assertNotNull(viewModelResult)
+        assertEquals(viewModelResult.value, liveDetailMovie.value)
+    }
+
+    @Test
+    fun testSetFavorite(){
+        val movie = ApiConfig.getApiService().getDetailMovie(movieId, BuildConfig.API_KEY).execute().body()
+        val movieEntity = MovieEntity(
+            movie!!.title,
+            movie.posterPath,
+            movie.releaseDate,
+            movie.voteAverage,
+            movie.id
+        )
+        doNothing().`when`(filmRepository).insertFavoriteMovie(movieEntity)
+        viewModel.setFavorite(movie!!)
+        verify(filmRepository, times(1)).insertFavoriteMovie(movieEntity)
+    }
+
+    @Test
+    fun testDeleteFavorite(){
+        val movie = ApiConfig.getApiService().getDetailMovie(movieId, BuildConfig.API_KEY).execute().body()
+        val movieEntity = MovieEntity(
+            movie!!.title,
+            movie.posterPath,
+            movie.releaseDate,
+            movie.voteAverage,
+            movie.id
+        )
+        doNothing().`when`(filmRepository).deleteFavoriteMovie(movieEntity)
+        viewModel.deleteFavorite(movie!!)
+        verify(filmRepository, times(1)).deleteFavoriteMovie(movieEntity)
     }
 
     @After

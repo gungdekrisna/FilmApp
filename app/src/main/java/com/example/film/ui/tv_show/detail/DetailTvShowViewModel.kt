@@ -7,10 +7,11 @@ import com.example.film.data.resources.local.TvShowEntity
 import com.example.film.data.resources.remote.response.DetailTvResponse
 
 class DetailTvShowViewModel(private val filmRepository: FilmRepository) : ViewModel() {
-    private var tvShowId: Int = 0
+    var tvShowId: Int = 0
 
-    fun setSelectedTvShow(tvShowId: Int) {
+    fun setSelectedTvShow(tvShowId: Int): Int {
         this.tvShowId = tvShowId
+        return tvShowId
     }
 
     fun getDetailTv() : LiveData<DetailTvResponse> = filmRepository.getDetailTv(tvShowId)

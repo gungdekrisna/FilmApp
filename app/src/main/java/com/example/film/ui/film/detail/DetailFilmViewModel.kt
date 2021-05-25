@@ -9,8 +9,9 @@ import com.example.film.data.resources.remote.response.DetailMovieResponse
 class DetailFilmViewModel(private val filmRepository: FilmRepository) : ViewModel() {
     private var filmId: Int = 0
 
-    fun setSelectedMovies(filmId: Int) {
+    fun setSelectedMovies(filmId: Int): Int {
         this.filmId = filmId
+        return filmId
     }
 
     fun getDetailMovies() : LiveData<DetailMovieResponse> = filmRepository.getDetailMovie(filmId)

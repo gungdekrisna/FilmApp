@@ -77,10 +77,10 @@ class FilmRepository constructor(
 
     // Favorite
     // Movies
-    override fun getFavoriteMovies(): DataSource.Factory<Int, MovieEntity> {
+    override fun getFavoriteMovies(sort: String): DataSource.Factory<Int, MovieEntity> {
         var favoriteMovieResult : DataSource.Factory<Int, MovieEntity>? = null
 
-        localDataSource.getFavoriteMovies(object : LocalDataSource.LoadFavoriteMoviesCallback {
+        localDataSource.getFavoriteMovies(sort, object : LocalDataSource.LoadFavoriteMoviesCallback {
             override fun onFavoriteMoviesReceived(movieEntity: DataSource.Factory<Int, MovieEntity>) {
                 favoriteMovieResult = movieEntity
             }
@@ -110,10 +110,10 @@ class FilmRepository constructor(
     }
 
     // Tv Shows
-    override fun getFavoriteTvShows(): DataSource.Factory<Int, TvShowEntity> {
+    override fun getFavoriteTvShows(sort: String): DataSource.Factory<Int, TvShowEntity> {
         var favoriteTvShowResult : DataSource.Factory<Int, TvShowEntity>? = null
 
-        localDataSource.getFavoriteTvShows(object : LocalDataSource.LoadFavoriteTvShowsCallback {
+        localDataSource.getFavoriteTvShows(sort, object : LocalDataSource.LoadFavoriteTvShowsCallback {
             override fun onFavoriteTvShowsReceived(tvShowEntity: DataSource.Factory<Int, TvShowEntity>) {
                 favoriteTvShowResult = tvShowEntity
             }
